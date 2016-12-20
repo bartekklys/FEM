@@ -1,4 +1,4 @@
-package pl.bartekk;
+package model;
 
 public class Element {
 
@@ -6,12 +6,12 @@ public class Element {
 	private boolean convevtionCondition;
 
 	private double dL; // dlugosc elementu
-	private int firstNodeId;
-	private int secondNodeId;
-	private double surfaceArea;
-	private double conductingRate;
-	private double localMatrix[][] = new double[2][2];
-	private double boundaryMatrix[] = new double[2];
+	private int firstNodeId; // id pierwszego wezla
+	private int secondNodeId; // id drugiego wezla
+	private double surfaceArea; // pole powierchni
+	private double conductingRate; // wspolczynnik przenikania
+	private double [][] localMatrix = new double[2][2]; // macierz lokalna 2x2
+	private double [] boundaryMatrix = new double[2]; // lokalna macierz warunkow brzegowych 1x2
 
 	public double[] getBoundaryMatrix() {
 		return boundaryMatrix;
@@ -88,8 +88,7 @@ public class Element {
 	@Override
 	public String toString() {
 		return "[ " + localMatrix[0][0] + " , " + localMatrix[0][1] + "\n" + " , " + localMatrix[1][0] + " , "
-				+ localMatrix[1][1] + " ]" + "\n" +
-				+ boundaryMatrix[0] + " , " + boundaryMatrix[1];
+				+ localMatrix[1][1] + " ]" + "\n" + +boundaryMatrix[0] + " , " + boundaryMatrix[1];
 	}
 
 }

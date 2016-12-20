@@ -2,8 +2,15 @@ package pl.bartekk;
 
 import java.util.List;
 
+import model.Element;
+
 public class Utils {
 
+	/**
+	 * @param elements
+	 * 
+	 * c = S*K/L
+	 */
 	public static void generateLocalMatrix(List<Element> elements) {
 
 		double c = 0.0;
@@ -11,7 +18,7 @@ public class Utils {
 
 		for (Element e : elements) {
 
-			c = e.getSurfaceArea() * e.getConductingRate() * 1 / e.getdL();
+			c = e.getSurfaceArea() * e.getConductingRate() / e.getdL();
 
 			for (int i = 0; i < 2; i++) {
 				for (int j = 0; j < 2; j++) {
@@ -26,9 +33,10 @@ public class Utils {
 	}
 
 	public static void generateBurdenMatrix(List<Element> elements) {
-		int q = 5; // strumien ciepla
-		double alfa = 0.5; // wspolczynnik konwekcji wymiany ciepla
-		int tn = 30; // temperatura konwekcji (otoczenia?)
+		// TODO: zmienne z pliku
+		int q = 300; // strumien ciepla
+		double alfa = 58; // wspolczynnik konwekcji wymiany ciepla
+		int tn = 25; // temperatura konwekcji (otoczenia?)
 
 		for (Element e : elements) {
 			// a = e.G;

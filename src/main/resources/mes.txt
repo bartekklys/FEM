@@ -1,10 +1,3 @@
-3
-1 2
-2 0
-3 10
-2
-1 1 3 S k
-2 2 1 S k
-2
-2 1 -30
-3 2 alfa talfa
+numberOfElements=2
+numberOfNodes=3
+temperature=20
