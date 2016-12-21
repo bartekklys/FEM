@@ -2,16 +2,31 @@ package model;
 
 public class Element {
 
-	private boolean streamCondition;
-	private boolean convevtionCondition;
-
 	private double dL; // dlugosc elementu
 	private int firstNodeId; // id pierwszego wezla
 	private int secondNodeId; // id drugiego wezla
 	private double surfaceArea; // pole powierchni
 	private double conductingRate; // wspolczynnik przenikania
-	private double [][] localMatrix = new double[2][2]; // macierz lokalna 2x2
-	private double [] boundaryMatrix = new double[2]; // lokalna macierz warunkow brzegowych 1x2
+	private boolean streamCondition;
+	private boolean convevtionCondition;
+	private double[][] localMatrix = new double[2][2]; // macierz lokalna 2x2
+	private double[] boundaryMatrix = new double[2]; // lokalna macierz warunkow
+														// brzegowych 1x2
+
+	public Element() {
+	}
+
+	public Element(double dL, int firstNodeId, int secondNodeId, double surfaceArea, double conductingRate,
+			boolean streamCondition, boolean convevtionCondition) {
+		super();
+		this.dL = dL;
+		this.firstNodeId = firstNodeId;
+		this.secondNodeId = secondNodeId;
+		this.surfaceArea = surfaceArea;
+		this.conductingRate = conductingRate;
+		this.streamCondition = streamCondition;
+		this.convevtionCondition = convevtionCondition;
+	}
 
 	public double[] getBoundaryMatrix() {
 		return boundaryMatrix;
@@ -87,8 +102,9 @@ public class Element {
 
 	@Override
 	public String toString() {
-		return "[ " + localMatrix[0][0] + " , " + localMatrix[0][1] + "\n" + " , " + localMatrix[1][0] + " , "
-				+ localMatrix[1][1] + " ]" + "\n" + +boundaryMatrix[0] + " , " + boundaryMatrix[1];
+		return "Element [dL=" + dL + ", firstNodeId=" + firstNodeId + ", secondNodeId=" + secondNodeId
+				+ ", surfaceArea=" + surfaceArea + ", conductingRate=" + conductingRate + ", streamCondition="
+				+ streamCondition + ", convevtionCondition=" + convevtionCondition + "]";
 	}
 
 }

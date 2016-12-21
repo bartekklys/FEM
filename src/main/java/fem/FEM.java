@@ -1,10 +1,10 @@
-package pl.bartekk;
+package fem;
 
 import java.util.List;
 
 import model.Element;
 
-public class Utils {
+public class FEM {
 
 	/**
 	 * @param elements
@@ -45,7 +45,6 @@ public class Utils {
 				e.setBoundaryMatrix(q * e.getSurfaceArea(), 0);
 			if (e.isConvevtionCondition())
 				e.setBoundaryMatrix(-1 * alfa * tn * e.getSurfaceArea(), 1);
-			System.out.println(e.toString());
 		}
 	}
 }

@@ -1,3 +1,4 @@
 numberOfElements=2
 numberOfNodes=3
 temperature=20
+element1=1_2_3_4_5_6_7

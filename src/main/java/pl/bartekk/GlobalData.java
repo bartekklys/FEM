@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import utility.FileReader;
+import utility.Utils;
 
 public class GlobalData {
 
@@ -25,7 +25,7 @@ public class GlobalData {
 
 	public GlobalData() {
 		try {
-			Map<String, Double> globalData = FileReader.readFromFile();
+			Map<String, Double> globalData = Utils.readFromFile();
 			this.numberOfElements = globalData.get(NUMBER_OF_ELEMENTS).intValue();
 			this.numberOfNodes = globalData.get(NUMBER_OF_NODES).intValue();
 			this.T = globalData.get(TEMPERATURE);

@@ -1,4 +1,4 @@
-package pl.bartekk;
+package fem;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import model.Element;
 public class FiniteElementMethodFacade {
 	
 	public void start(List<Element> elements){
-		Utils.generateLocalMatrix(elements);
-		Utils.generateBurdenMatrix(elements);
+		FEM.generateLocalMatrix(elements);
+		FEM.generateBurdenMatrix(elements);
 	}
 }
