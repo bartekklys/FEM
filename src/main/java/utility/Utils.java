@@ -54,12 +54,17 @@ public class Utils {
 			int equalSign = string.indexOf('=');
 			String e = string.substring(equalSign + 1);
 
-			String[] element = e.split("_");
+			String[] elementData = e.split("_");
 
-			// TODO:poustawiac reszte
-			Element ee = new Element();
-			ee.setdL(Double.parseDouble(element[2]));
-			elements.add(ee);
+			Element element = new Element();
+			element.setLength(Double.parseDouble(elementData[0]));
+			element.setFirstNodeId(Integer.parseInt(elementData[1]));
+			element.setSecondNodeId(Integer.parseInt(elementData[2]));
+			element.setSurfaceArea(Double.parseDouble(elementData[3]));
+			element.setConductingRate(Double.parseDouble(elementData[4]));
+			element.setStreamCondition(Boolean.parseBoolean(elementData[5]));
+			element.setConvevtionCondition(Boolean.parseBoolean(elementData[6]));
+			elements.add(element);
 		}
 		return elements;
 	}

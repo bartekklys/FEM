@@ -2,7 +2,7 @@ package model;
 
 public class Element {
 
-	private double dL; // dlugosc elementu
+	private double length; // dlugosc elementu
 	private int firstNodeId; // id pierwszego wezla
 	private int secondNodeId; // id drugiego wezla
 	private double surfaceArea; // pole powierchni
@@ -19,7 +19,7 @@ public class Element {
 	public Element(double dL, int firstNodeId, int secondNodeId, double surfaceArea, double conductingRate,
 			boolean streamCondition, boolean convevtionCondition) {
 		super();
-		this.dL = dL;
+		this.length = dL;
 		this.firstNodeId = firstNodeId;
 		this.secondNodeId = secondNodeId;
 		this.surfaceArea = surfaceArea;
@@ -68,12 +68,12 @@ public class Element {
 		this.conductingRate = conductingRate;
 	}
 
-	public double getdL() {
-		return dL;
+	public double getLentgh() {
+		return length;
 	}
 
-	public void setdL(double dL) {
-		this.dL = dL;
+	public void setLength(double length) {
+		this.length = length;
 	}
 
 	public int getFirstNodeId() {
@@ -102,7 +102,7 @@ public class Element {
 
 	@Override
 	public String toString() {
-		return "Element [dL=" + dL + ", firstNodeId=" + firstNodeId + ", secondNodeId=" + secondNodeId
+		return "Element [dL=" + length + ", firstNodeId=" + firstNodeId + ", secondNodeId=" + secondNodeId
 				+ ", surfaceArea=" + surfaceArea + ", conductingRate=" + conductingRate + ", streamCondition="
 				+ streamCondition + ", convevtionCondition=" + convevtionCondition + "]";
 	}

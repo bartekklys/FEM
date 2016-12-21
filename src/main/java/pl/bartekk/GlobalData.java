@@ -3,13 +3,9 @@ package pl.bartekk;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import utility.Utils;
 
 public class GlobalData {
-
-	private static Logger logger = Logger.getLogger(GlobalData.class);
 
 	private static final String NUMBER_OF_ELEMENTS = "numberOfElements";
 	private static final String NUMBER_OF_NODES = "numberOfNodes";
@@ -31,9 +27,88 @@ public class GlobalData {
 			this.T = globalData.get(TEMPERATURE);
 			// TODO: remaining fields
 		} catch (FileNotFoundException e) {
-			logger.info("no data " + e);
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	public double[][] getGlobalMatrix() {
+		return globalMatrix;
+	}
+
+
+
+	public void setGlobalMatrix(double[][] globalMatrix) {
+		this.globalMatrix = globalMatrix;
+	}
+
+
+
+	public double[][] getGlobalBoundaryMatrix() {
+		return globalBoundaryMatrix;
+	}
+
+
+
+	public void setGlobalBoundaryMatrix(double[][] globalBoundaryMatrix) {
+		this.globalBoundaryMatrix = globalBoundaryMatrix;
+	}
+
+
+
+	public double getSystemLength() {
+		return systemLength;
+	}
+
+	public void setSystemLength(double systemLength) {
+		this.systemLength = systemLength;
+	}
+
+	public double getAlfa() {
+		return alfa;
+	}
+
+	public void setAlfa(double alfa) {
+		this.alfa = alfa;
+	}
+
+	public int getNumberOfElements() {
+		return numberOfElements;
+	}
+
+	public void setNumberOfElements(int numberOfElements) {
+		this.numberOfElements = numberOfElements;
+	}
+
+	public int getNumberOfNodes() {
+		return numberOfNodes;
+	}
+
+	public void setNumberOfNodes(int numberOfNodes) {
+		this.numberOfNodes = numberOfNodes;
+	}
+
+	public double getT() {
+		return T;
+	}
+
+	public void setT(double t) {
+		T = t;
+	}
+
+	public double getQ() {
+		return q;
+	}
+
+	public void setQ(double q) {
+		this.q = q;
+	}
+
+	public static String getTemperature() {
+		return TEMPERATURE;
+	}
+	
+	
 
 }

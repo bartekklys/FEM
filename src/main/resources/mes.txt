@@ -1,4 +1,5 @@
 numberOfElements=2
 numberOfNodes=3
 temperature=20
-element1=1_2_3_4_5_6_7
+element1=6_1_2_50_57_false_false
+element2=6_2_3_50_57_false_false
