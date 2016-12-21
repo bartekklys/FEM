@@ -3,60 +3,57 @@ package fem;
 import java.util.List;
 
 import model.Element;
-import pl.bartekk.GlobalData;
+import utility.GlobalData;
 
 public class FEM {
 
-	// TODO: zmienic minus
-
 	static GlobalData globalData = new GlobalData();
 
-	/**
-	 * @param elements
-	 * 
-	 *            c = S*K/L
-	 */
 	public static void generateLocalMatrix(List<Element> elements) {
 
-		double c = 0.0;
-		int minus;
+		double c;
 
-		for (Element e : elements) {
+		for (Element element : elements) {
 
-			c = e.getSurfaceArea() * e.getConductingRate() / e.getLentgh();
+			double[][] localMatrix = new double[2][2];
+			c = element.getSurfaceArea() * element.getConductingRate() / element.getLentgh();
 
 			for (int i = 0; i < 2; i++) {
 				for (int j = 0; j < 2; j++) {
+
 					if ((j == 1 && i == 0) || (i == 1 && j == 0))
-						minus = -1;
+						localMatrix[i][j] = c * (-1);
 					else
-						minus = 1;
-					e.setLocalMatrix(c * minus, i, j);
+						localMatrix[i][j] = c;
 				}
 			}
+			element.setLocalMatrix(localMatrix);
 		}
 	}
 
 	public static void generateBurdenMatrix(List<Element> elements) {
-		// TODO: zmienne z pliku
-		int q = 300; // strumien ciepla
-		double alfa = 58; // wspolczynnik konwekcji wymiany ciepla
-		int tn = 25; // temperatura konwekcji (otoczenia?)
+		double q = globalData.getQ();
+		double alpha = globalData.getAlpha();
+		double tn = globalData.getT();
 
 		for (Element e : elements) {
 
 			if (e.isStreamCondition())
 				e.setBoundaryMatrix(q * e.getSurfaceArea(), 0);
 			if (e.isConvevtionCondition())
-				e.setBoundaryMatrix(-1 * alfa * tn * e.getSurfaceArea(), 1);
+				e.setBoundaryMatrix(-1 * alpha * tn * e.getSurfaceArea(), 1);
 		}
 	}
 
 	public static void generateGlobalMatrix(List<Element> elements) {
-		int globalMatrixSize = elements.size() + 3;
+		
+		int globalMatrixSize = elements.size() + 2;
 		double[][] globalMatrix = new double[globalMatrixSize][globalMatrixSize];
+		
 		for (int k = 0; k < globalData.getNumberOfElements(); k++) {
+			
 			double[][] localMatrix = elements.get(k).getLocalMatrix();
+			
 			for (int i = 0; i < 2; i++) {
 				for (int j = 0; j < 2; j++) {
 					int x = 0;
@@ -72,16 +69,8 @@ public class FEM {
 
 					globalMatrix[x][y] = globalMatrix[x][y] + localMatrix[i][j];
 					globalData.setGlobalMatrix(globalMatrix);
-
 				}
 			}
-		}
-		for(int i = 0 ; i < globalMatrixSize ; i++){
-			for(int j = 0 ; j < globalMatrixSize ; j++){
-			
-			System.out.print(globalMatrix[i][j]);
-			}
-			System.out.println("\n");
 		}
 	}
 }

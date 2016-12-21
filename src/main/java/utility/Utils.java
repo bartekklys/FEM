@@ -14,7 +14,7 @@ public class Utils {
 
 	private static final String FILE_PATH = "src/main/resources/mes.txt";
 
-	public static Map<String, Double> readFromFile() throws FileNotFoundException {
+	public static Map<String, Double> getGlobalData() throws FileNotFoundException {
 
 		Scanner s = new Scanner(new File(getFilePath()));
 		List<String> list = new ArrayList<>();

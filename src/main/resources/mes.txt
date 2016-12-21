@@ -1,5 +1,7 @@
+systemLength=7
 numberOfElements=2
-numberOfNodes=3
-temperature=20
-element1=6_1_2_50_57_false_false
-element2=6_2_3_50_57_false_false
+temperature=40
+alpha=10
+element1=3.5_1_2_1_75_false_false
+element2=3.5_2_3_1_75_false_false
+q=-150

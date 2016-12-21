@@ -96,8 +96,8 @@ public class Element {
 		return localMatrix;
 	}
 
-	public void setLocalMatrix(double d, int i, int j) {
-		this.localMatrix[i][j] = d;
+	public void setLocalMatrix(double[][] localMatrix) {
+		this.localMatrix = localMatrix;
 	}
 
 	@Override

@@ -8,7 +8,8 @@ import utility.Utils;
 
 public class FiniteElementMethodFacade {
 	
-	public void start(List<Element> elements) throws FileNotFoundException{
+	public void start() throws FileNotFoundException{
+		List<Element> elements = Utils.getElements();
 		FEM.generateLocalMatrix(elements);
 		FEM.generateBurdenMatrix(elements);
 		FEM.generateGlobalMatrix(elements);
