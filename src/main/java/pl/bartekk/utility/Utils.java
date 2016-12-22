@@ -76,7 +76,7 @@ public class Utils {
 			int equalSign = string.indexOf('=');
 			String e = string.substring(equalSign + 1);
 
-			String[] elementData = e.split("_");
+			String[] elementData = e.split(",");
 
 			Element element = new Element();
 			element.setLength(Double.parseDouble(elementData[0]));
