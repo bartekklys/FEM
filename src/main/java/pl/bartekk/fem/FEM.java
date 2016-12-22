@@ -8,11 +8,27 @@ import pl.bartekk.model.Element;
 import pl.bartekk.utility.GlobalData;
 import pl.bartekk.utility.Utils;
 
+/**
+ * @author bartek
+ *
+ *         Klasa zawierająca główną logikę. Generuje macierz lokalną oraz
+ *         macierz warunków brzegowych dla wszystkich elementów, a następnie
+ *         tworzy macierz globalną oraz metodą eliminacji Gaussa Jordana zwraca
+ *         wynik programu.
+ */
 public class FEM {
 
-	static GlobalData globalData = new GlobalData();
-	private static final double EPSILON = 1e-10;
+	private static GlobalData globalData = new GlobalData();
+	private static int numberOfElements = globalData.getNumberOfElements();
 
+	/**
+	 * @param elements
+	 *            - lista elementów w rozpatrywanym układzie
+	 * 
+	 *            Generuję macierz lokalną oraz lokalny wektor obciążeń
+	 *            uwzględniając strumień ciepła oraz warunek konwekcji dla
+	 *            wszystkich elementów.
+	 */
 	public static void generateLocalMatrix(List<Element> elements) {
 
 		for (Element element : elements) {
@@ -32,40 +48,30 @@ public class FEM {
 			element.setLocalMatrix(localMatrix);
 		}
 
-		double[][] localMatrix = elements.get(globalData.getNumberOfElements() - 1).getLocalMatrix();
-		localMatrix[1][1] += globalData.getAlpha()
-				* elements.get(globalData.getNumberOfElements() - 1).getSurfaceArea();
+		double[][] localMatrix = elements.get(numberOfElements - 1).getLocalMatrix();
+		localMatrix[1][1] += globalData.getAlpha() * elements.get(numberOfElements - 1).getSurfaceArea();
 
-		for (int k = 0; k < globalData.getNumberOfElements(); k++)
+		for (int k = 0; k < numberOfElements; k++)
 			for (int i = 0; i < 2; i++) {
-				double[] bm = elements.get(k).getBoundaryMatrix();
-				bm[i] = 0;
-				elements.get(k).setBoundaryMatrix(bm);
+				double[] boundaryMatrix = elements.get(k).getBoundaryMatrix();
+				boundaryMatrix[i] = 0;
+				elements.get(k).setBoundaryMatrix(boundaryMatrix);
 			}
 
-		double[] bm = elements.get(0).getBoundaryMatrix();
-		bm[0] = globalData.getQ() * elements.get(0).getSurfaceArea();
+		double[] firstBoundaryMatrix = elements.get(0).getBoundaryMatrix();
+		firstBoundaryMatrix[0] = globalData.getQ() * elements.get(0).getSurfaceArea();
 
-		double[] pl = elements.get(globalData.getNumberOfElements() - 1).getBoundaryMatrix();
-		pl[1] = -1 * globalData.getAlpha() * globalData.getT()
-				* elements.get(globalData.getNumberOfElements() - 1).getSurfaceArea();
+		double[] lastBoundaryMatrix = elements.get(numberOfElements - 1).getBoundaryMatrix();
+		lastBoundaryMatrix[1] = -1 * globalData.getAlpha() * globalData.getT()
+				* elements.get(numberOfElements - 1).getSurfaceArea();
 	}
 
-	public static void generateBurdenMatrix(List<Element> elements) {
-		for (Element e : elements) {
-			double[] boundaryMatrix = new double[2];
-
-			if (e.isStreamCondition()) {
-				boundaryMatrix[0] = globalData.getQ() * e.getSurfaceArea();
-				e.setBoundaryMatrix(boundaryMatrix);
-			}
-			if (e.isConvevtionCondition()) {
-				boundaryMatrix[1] = (-1) * globalData.getAlpha() * globalData.getT() * e.getSurfaceArea();
-				e.setBoundaryMatrix(boundaryMatrix);
-			}
-		}
-	}
-
+	/**
+	 * @param elements
+	 *            - lista elementów w rozpatrywanym układzie
+	 * 
+	 *            Na podstawie lokalnych macierzy generuję macierz globalną.
+	 */
 	public static void generateGlobalMatrix(List<Element> elements) {
 
 		double[][] globalMatrix = globalData.getGlobalMatrix();
@@ -94,6 +100,15 @@ public class FEM {
 		}
 	}
 
+	/**
+	 * @param elements
+	 *            - lista elementów w rozpatrywanym układzie
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException
+	 * 
+	 *             Na podstawie lokalnych maciery wartości brzegowych eneruję
+	 *             globalną macierz obciażeń.
+	 */
 	public static void generateGlobalBoundaryMatrix(List<Element> elements)
 			throws FileNotFoundException, UnsupportedEncodingException {
 		int c = 0;
@@ -117,12 +132,21 @@ public class FEM {
 				gaussianElimination(globalData.getGlobalMatrix(), globalData.getGlobalBoundaryMatrix()));
 	}
 
+	/**
+	 * @param A
+	 *            - macierz globalna
+	 * @param b
+	 *            - wektor obciążeń
+	 * @return zwraca tablicę wynikową
+	 * 
+	 *         Metoda eliminacji Gaussa Jordana, zwraca tablicę z szukanymi
+	 *         temperaturami.
+	 */
 	private static double[] gaussianElimination(double[][] A, double[] b) {
 		int N = b.length;
 
 		for (int p = 0; p < N; p++) {
 
-			// find pivot row and swap
 			int max = p;
 			for (int i = p + 1; i < N; i++) {
 				if (Math.abs(A[i][p]) > Math.abs(A[max][p])) {
@@ -136,12 +160,6 @@ public class FEM {
 			b[p] = b[max];
 			b[max] = t;
 
-			// singular or nearly singular
-			if (Math.abs(A[p][p]) <= EPSILON) {
-				throw new RuntimeException("Matrix is singular or nearly singular");
-			}
-
-			// pivot within A and b
 			for (int i = p + 1; i < N; i++) {
 				double alpha = A[i][p] / A[p][p];
 				b[i] -= alpha * b[p];
@@ -150,8 +168,6 @@ public class FEM {
 				}
 			}
 		}
-
-		// back substitution
 		double[] x = new double[N];
 		for (int i = N - 1; i >= 0; i--) {
 			double sum = 0.0;

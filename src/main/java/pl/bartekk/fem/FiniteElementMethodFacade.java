@@ -12,7 +12,7 @@ public class FiniteElementMethodFacade {
 	public void start() throws FileNotFoundException, UnsupportedEncodingException{
 		List<Element> elements = Utils.getElements();
 		FEM.generateLocalMatrix(elements);
-		FEM.generateBurdenMatrix(elements);
+		//FEM.generateBurdenMatrix(elements);
 		FEM.generateGlobalMatrix(elements);
 		FEM.generateGlobalBoundaryMatrix(elements);
 	}

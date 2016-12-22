@@ -1,5 +1,10 @@
 package pl.bartekk.model;
 
+/**
+ * @author bartek
+ *
+ * Element skończony, który uzyskujemy po dyskretyzacji dziedziny.
+ */
 public class Element {
 
 	private double length; // dlugosc elementu
@@ -7,10 +12,9 @@ public class Element {
 	private int secondNodeId; // id drugiego wezla
 	private double surfaceArea; // pole powierzchni
 	private double conductingRate; // wspolczynnik przenikania
-	private boolean streamCondition; // strumien
-	private boolean convevtionCondition; // konwekcja
 	private double[][] localMatrix = new double[2][2]; // macierz lokalna 2x2
-	private double[] boundaryMatrix = new double[2]; // lokalna macierz warunkow 1x2
+	private double[] boundaryMatrix = new double[2]; // lokalna macierz warunkow
+														// 1x2
 
 	public double[] getBoundaryMatrix() {
 		return boundaryMatrix;
@@ -18,22 +22,6 @@ public class Element {
 
 	public void setBoundaryMatrix(double[] boundaryMatrix) {
 		this.boundaryMatrix = boundaryMatrix;
-	}
-
-	public boolean isStreamCondition() {
-		return streamCondition;
-	}
-
-	public void setStreamCondition(boolean streamCondition) {
-		this.streamCondition = streamCondition;
-	}
-
-	public boolean isConvevtionCondition() {
-		return convevtionCondition;
-	}
-
-	public void setConvevtionCondition(boolean convevtionCondition) {
-		this.convevtionCondition = convevtionCondition;
 	}
 
 	public double getSurfaceArea() {

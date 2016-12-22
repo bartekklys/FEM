@@ -3,6 +3,11 @@ package pl.bartekk.utility;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
+/**
+ * @author bartek
+ *
+ * Klasa przechowująca dane globalne.
+ */
 public class GlobalData {
 
 	private static final String ALPHA = "alpha";

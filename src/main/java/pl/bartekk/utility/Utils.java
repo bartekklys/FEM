@@ -13,10 +13,23 @@ import java.util.Scanner;
 
 import pl.bartekk.model.Element;
 
+/**
+ * @author bartek
+ *
+ * Narzędzia służące do zapisu wyniku oraz odczytu z pliku danych globalnych
+ * oraz informacji o elementach.
+ * 
+ */
 public class Utils {
 
 	private static final String FILE_PATH = "src/main/resources/mes.txt";
 
+	/**
+	 * @return mapa z danymi globalnymi
+	 * @throws FileNotFoundException
+	 * 
+	 * Zwraca zmapowane wartośći z pliku mes.txt.
+	 */
 	public static Map<String, Double> getGlobalData() throws FileNotFoundException {
 
 		Scanner s = new Scanner(new File(getFilePath()));
@@ -35,6 +48,12 @@ public class Utils {
 		return map;
 	}
 
+	/**
+	 * @return lista elementów
+	 * @throws FileNotFoundException
+	 * 
+	 * Zwraca listę elementów popranych z pliku mes.txt.
+	 */
 	public static List<Element> getElements() throws FileNotFoundException {
 		Scanner s = new Scanner(new File(getFilePath()));
 
@@ -48,9 +67,9 @@ public class Utils {
 		s.close();
 
 
-		for (String ss : data) {
-			if (ss.startsWith("element"))
-				listOfElements.add(ss);
+		for (String element : data) {
+			if (element.startsWith("element"))
+				listOfElements.add(element);
 		}
 
 		for (String string : listOfElements) {
@@ -65,18 +84,28 @@ public class Utils {
 			element.setSecondNodeId(Integer.parseInt(elementData[2]));
 			element.setSurfaceArea(Double.parseDouble(elementData[3]));
 			element.setConductingRate(Double.parseDouble(elementData[4]));
-			element.setStreamCondition(Boolean.parseBoolean(elementData[5]));
-			element.setConvevtionCondition(Boolean.parseBoolean(elementData[6]));
 			elements.add(element);
 		}
 		return elements;
 	}
 
+	/**
+	 * @return
+	 * 
+	 * Prywatna metodą zwracająca ścieżkę do pliku mes.txt.
+	 */
 	private static String getFilePath() {
 		File file = new File(FILE_PATH);
 		return file.getAbsolutePath();
 	}
 	
+	/**
+	 * @param result
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException
+	 * 
+	 * Zapis wyników do pliku w postaci np. "t1 = 100" itd.
+	 */
 	public static void writeResultToFile(double[] result) throws FileNotFoundException, UnsupportedEncodingException{
 		    PrintWriter writer = new PrintWriter("src/main/resources/result.txt");
 		    for(int i = 0 ; i < result.length ; i++){
