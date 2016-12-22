@@ -1,39 +1,23 @@
-package model;
+package pl.bartekk.model;
 
 public class Element {
 
 	private double length; // dlugosc elementu
 	private int firstNodeId; // id pierwszego wezla
 	private int secondNodeId; // id drugiego wezla
-	private double surfaceArea; // pole powierchni
+	private double surfaceArea; // pole powierzchni
 	private double conductingRate; // wspolczynnik przenikania
-	private boolean streamCondition;
-	private boolean convevtionCondition;
+	private boolean streamCondition; // strumien
+	private boolean convevtionCondition; // konwekcja
 	private double[][] localMatrix = new double[2][2]; // macierz lokalna 2x2
-	private double[] boundaryMatrix = new double[2]; // lokalna macierz warunkow
-														// brzegowych 1x2
-
-	public Element() {
-	}
-
-	public Element(double dL, int firstNodeId, int secondNodeId, double surfaceArea, double conductingRate,
-			boolean streamCondition, boolean convevtionCondition) {
-		super();
-		this.length = dL;
-		this.firstNodeId = firstNodeId;
-		this.secondNodeId = secondNodeId;
-		this.surfaceArea = surfaceArea;
-		this.conductingRate = conductingRate;
-		this.streamCondition = streamCondition;
-		this.convevtionCondition = convevtionCondition;
-	}
+	private double[] boundaryMatrix = new double[2]; // lokalna macierz warunkow 1x2
 
 	public double[] getBoundaryMatrix() {
 		return boundaryMatrix;
 	}
 
-	public void setBoundaryMatrix(double d, int i) {
-		this.boundaryMatrix[i] = d;
+	public void setBoundaryMatrix(double[] boundaryMatrix) {
+		this.boundaryMatrix = boundaryMatrix;
 	}
 
 	public boolean isStreamCondition() {
@@ -99,12 +83,4 @@ public class Element {
 	public void setLocalMatrix(double[][] localMatrix) {
 		this.localMatrix = localMatrix;
 	}
-
-	@Override
-	public String toString() {
-		return "Element [dL=" + length + ", firstNodeId=" + firstNodeId + ", secondNodeId=" + secondNodeId
-				+ ", surfaceArea=" + surfaceArea + ", conductingRate=" + conductingRate + ", streamCondition="
-				+ streamCondition + ", convevtionCondition=" + convevtionCondition + "]";
-	}
-
 }

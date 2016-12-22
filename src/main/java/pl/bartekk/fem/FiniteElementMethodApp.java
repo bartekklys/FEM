@@ -1,10 +1,10 @@
-package fem;
+package pl.bartekk.fem;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Element;
+import pl.bartekk.model.Element;
 
 public class FiniteElementMethodApp {
 

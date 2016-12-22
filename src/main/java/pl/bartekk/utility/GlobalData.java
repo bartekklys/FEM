@@ -1,38 +1,53 @@
-package utility;
+package pl.bartekk.utility;
 
 import java.io.FileNotFoundException;
 import java.util.Map;
 
 public class GlobalData {
 
+	private static final String ALPHA = "alpha";
 	private static final String NUMBER_OF_ELEMENTS = "numberOfElements";
 	private static final String TEMPERATURE = "temperature";
-	private static final String SYSTEM_LENGTH = "systemLength";
-	private static final String ALPHA = "alpha";
 	private static final String Q_STREAM = "q";
-	
-	private double systemLength; // dlugosc ukladu
+
 	private double alpha; // wspolczynnik konwekcji wymiany ciepla
 	private int numberOfElements; // ilosc elementow
 	private int numberOfNodes; // ilosc wezlow
 	private double[][] globalMatrix; // macierz globalna
-	private double[][] globalBoundaryMatrix; // globalny wektor warunkow brzgowych
+	private double[] globalBoundaryMatrix; // globalny wektor warunkow brzgowych
 	private double T; // temperatura konwekcji
 	private double q; // strumien ciepla
 
 	public GlobalData() {
-			Map<String, Double> globalData;
-			try {
-				globalData = Utils.getGlobalData();
-				this.systemLength = globalData.get(SYSTEM_LENGTH).doubleValue();
-				this.alpha = globalData.get(ALPHA).intValue();
-				this.numberOfElements = globalData.get(NUMBER_OF_ELEMENTS).intValue();
-				this.numberOfNodes = this.numberOfElements + 1;
-				this.T = globalData.get(TEMPERATURE);
-				this.q = globalData.get(Q_STREAM).doubleValue();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+		Map<String, Double> globalData;
+		try {
+			globalData = Utils.getGlobalData();
+			this.alpha = globalData.get(ALPHA).intValue();
+			this.numberOfElements = globalData.get(NUMBER_OF_ELEMENTS).intValue();
+			this.numberOfNodes = this.numberOfElements + 1;
+			this.globalMatrix = generateGlobalMatrix();
+			this.globalBoundaryMatrix = generateGlobalBoundaryMatrix();
+			this.T = globalData.get(TEMPERATURE);
+			this.q = globalData.get(Q_STREAM).doubleValue();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private double[][] generateGlobalMatrix() {
+		return new double[numberOfElements + 1][numberOfElements + 1];
+	}
+
+	private double[] generateGlobalBoundaryMatrix() {
+		return new double[numberOfElements + 1];
+	}
+
+	public int getNumberOfNodes() {
+		return numberOfNodes;
+	}
+
+	public void setNumberOfNodes(int numberOfNodes) {
+		this.numberOfNodes = numberOfNodes;
 	}
 
 	public int getNumberOfElements() {
@@ -51,11 +66,11 @@ public class GlobalData {
 		this.globalMatrix = globalMatrix;
 	}
 
-	public double[][] getGlobalBoundaryMatrix() {
+	public double[] getGlobalBoundaryMatrix() {
 		return globalBoundaryMatrix;
 	}
 
-	public void setGlobalBoundaryMatrix(double[][] globalBoundaryMatrix) {
+	public void setGlobalBoundaryMatrix(double[] globalBoundaryMatrix) {
 		this.globalBoundaryMatrix = globalBoundaryMatrix;
 	}
 
@@ -82,5 +97,4 @@ public class GlobalData {
 	public void setQ(double q) {
 		this.q = q;
 	}
-
 }

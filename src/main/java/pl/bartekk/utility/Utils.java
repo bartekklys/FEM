@@ -1,14 +1,17 @@
-package utility;
+package pl.bartekk.utility;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import model.Element;
+import pl.bartekk.model.Element;
 
 public class Utils {
 
@@ -35,22 +38,22 @@ public class Utils {
 	public static List<Element> getElements() throws FileNotFoundException {
 		Scanner s = new Scanner(new File(getFilePath()));
 
-		List<String> list = new ArrayList<>();
+		List<String> data = new ArrayList<>();
+		List<String> listOfElements = new ArrayList<>();
 		List<Element> elements = new ArrayList<>();
 
 		while (s.hasNext()) {
-			list.add(s.next());
+			data.add(s.next());
 		}
 		s.close();
 
-		List<String> nowa = new ArrayList<>();
 
-		for (String ss : list) {
+		for (String ss : data) {
 			if (ss.startsWith("element"))
-				nowa.add(ss);
+				listOfElements.add(ss);
 		}
 
-		for (String string : nowa) {
+		for (String string : listOfElements) {
 			int equalSign = string.indexOf('=');
 			String e = string.substring(equalSign + 1);
 
@@ -72,5 +75,13 @@ public class Utils {
 	private static String getFilePath() {
 		File file = new File(FILE_PATH);
 		return file.getAbsolutePath();
+	}
+	
+	public static void writeResultToFile(double[] result) throws FileNotFoundException, UnsupportedEncodingException{
+		    PrintWriter writer = new PrintWriter("src/main/resources/result.txt");
+		    for(int i = 0 ; i < result.length ; i++){
+		    	writer.println("t" + i + " = " + result[i]);
+		    }
+		    writer.close();
 	}
 }
