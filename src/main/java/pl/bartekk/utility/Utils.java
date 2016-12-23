@@ -23,6 +23,7 @@ import pl.bartekk.model.Element;
 public class Utils {
 
 	private static final String FILE_PATH = "src/main/resources/mes.txt";
+	private static final String RESULT_FILE_PATH = "src/main/resources/result.txt";
 
 	/**
 	 * @return mapa z danymi globalnymi
@@ -107,7 +108,7 @@ public class Utils {
 	 * Zapis wyników do pliku w postaci np. "t1 = 100" itd.
 	 */
 	public static void writeResultToFile(double[] result) throws FileNotFoundException, UnsupportedEncodingException{
-		    PrintWriter writer = new PrintWriter("src/main/resources/result.txt");
+		    PrintWriter writer = new PrintWriter(RESULT_FILE_PATH);
 		    for(int i = 0 ; i < result.length ; i++){
 		    	writer.println("t" + i + " = " + result[i]);
 		    }
