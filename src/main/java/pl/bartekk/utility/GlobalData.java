@@ -47,20 +47,8 @@ public class GlobalData {
 		return new double[numberOfElements + 1];
 	}
 
-	public int getNumberOfNodes() {
-		return numberOfNodes;
-	}
-
-	public void setNumberOfNodes(int numberOfNodes) {
-		this.numberOfNodes = numberOfNodes;
-	}
-
 	public int getNumberOfElements() {
 		return numberOfElements;
-	}
-
-	public void setNumberOfElements(int numberOfElements) {
-		this.numberOfElements = numberOfElements;
 	}
 
 	public double[][] getGlobalMatrix() {
@@ -83,23 +71,12 @@ public class GlobalData {
 		return alpha;
 	}
 
-	public void setAlpha(double alpha) {
-		this.alpha = alpha;
-	}
-
 	public double getT() {
 		return T;
-	}
-
-	public void setT(double t) {
-		T = t;
 	}
 
 	public double getQ() {
 		return q;
 	}
 
-	public void setQ(double q) {
-		this.q = q;
-	}
 }

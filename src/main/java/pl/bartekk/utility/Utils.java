@@ -31,7 +31,7 @@ public class Utils {
 	 * 
 	 * Zwraca zmapowane wartośći z pliku mes.txt.
 	 */
-	public static Map<String, Double> getGlobalData() throws FileNotFoundException {
+	static Map<String, Double> getGlobalData() throws FileNotFoundException {
 
 		Scanner s = new Scanner(new File(getFilePath()));
 		List<String> list = new ArrayList<>();

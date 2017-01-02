@@ -16,7 +16,7 @@ import pl.bartekk.utility.Utils;
  *         tworzy macierz globalną oraz metodą eliminacji Gaussa Jordana zwraca
  *         wynik programu.
  */
-public class FEM {
+class FEM {
 
 	private static GlobalData globalData = new GlobalData();
 	private static int numberOfElements = globalData.getNumberOfElements();
@@ -29,7 +29,7 @@ public class FEM {
 	 *            uwzględniając strumień ciepła oraz warunek konwekcji dla
 	 *            wszystkich elementów.
 	 */
-	public static void generateLocalMatrix(List<Element> elements) {
+	static void generateLocalMatrix(List<Element> elements) {
 
 		for (Element element : elements) {
 
@@ -72,7 +72,7 @@ public class FEM {
 	 * 
 	 *            Na podstawie lokalnych macierzy generuję macierz globalną.
 	 */
-	public static void generateGlobalMatrix(List<Element> elements) {
+	static void generateGlobalMatrix(List<Element> elements) {
 
 		double[][] globalMatrix = globalData.getGlobalMatrix();
 
@@ -109,7 +109,7 @@ public class FEM {
 	 *             Na podstawie lokalnych maciery wartości brzegowych eneruję
 	 *             globalną macierz obciażeń.
 	 */
-	public static void generateGlobalBoundaryMatrix(List<Element> elements)
+	static void generateGlobalBoundaryMatrix(List<Element> elements)
 			throws FileNotFoundException, UnsupportedEncodingException {
 		int c = 0;
 		double[] globalBoundaryMatrix = globalData.getGlobalBoundaryMatrix();
