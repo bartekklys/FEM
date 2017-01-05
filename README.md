@@ -21,6 +21,9 @@ q=-150
 element1=3.5,1,2,1,75
 element2=3.5,2,3,1,75
 ```
+
+(należy pamiętać o tym, aby do liczb zmiennoprzecinkowych używać kropki zamiast przecinka)
+
 ### Wyniki
 Po uruchomieniu programu utworzony zostanie plik result.txt zawierający wartośći poszczególnych węzłów układu. Przykładowy plik wynikowy dla układu dwuelementowego:
 ```sh
