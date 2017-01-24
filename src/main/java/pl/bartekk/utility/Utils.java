@@ -96,8 +96,7 @@ public class Utils {
 	 * Prywatna metodą zwracająca ścieżkę do pliku mes.txt.
 	 */
 	private static String getFilePath() {
-		File file = new File(FILE_PATH);
-		return file.getAbsolutePath();
+		return new File(FILE_PATH).getAbsolutePath();
 	}
 	
 	/**
